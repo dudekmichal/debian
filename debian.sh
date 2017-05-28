@@ -46,7 +46,7 @@ config_apt()
 install_packages()
 {
   echo "==> Installing packages"
-  sudo apt xserver-xorg xinit \
+  sudo apt install xserver-xorg xinit \
   dmenu feh alsa-utils \
   vim cmake curl exuberant-ctags lua5.2 xfonts-terminus console-setup \
   python python2 gcc cmake zsh acpi nethack-console python-autopep8 \
