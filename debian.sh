@@ -59,8 +59,8 @@ install_packages()
 clone_dotfiles()
 {
   cd $HOME
-  git clone git@gitlab.com:qeni/dotfiles.git $HOME/.dotfiles
-  mv -f $HOME/.dotfiles/* $HOME/
+  git clone git@gitlab.com:qeni/dotfiles.git $HOME/repo/dotfiles
+  cp -R $HOME/repo/dotfiles/* $HOME/
 }
 
 config_other()
