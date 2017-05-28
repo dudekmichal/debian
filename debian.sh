@@ -58,9 +58,11 @@ install_packages()
 
 clone_dotfiles()
 {
-  cd $HOME
   git clone git@gitlab.com:qeni/dotfiles.git $HOME/repo/dotfiles
-  sudo cp -R $HOME/repo/dotfiles/* $HOME/
+  sudo cp -R $HOME/repo/dotfiles/.* $HOME/
+  rm -rf $HOME/repo/dotfiles
+
+  sudo chown qeni $HOME/*
 }
 
 config_other()
