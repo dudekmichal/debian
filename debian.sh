@@ -17,13 +17,13 @@ fi
 create_directories()
 {
   echo "==> Creating directories"
-  mkdir $HOME/repo
   mkdir $HOME/tmp
   mkdir $HOME/mnt
   mkdir $HOME/documents
   mkdir $HOME/music
   mkdir $HOME/movies
   mkdir $HOME/downloads
+  mkdir -p $HOME/repo
   mkdir -p $HOME/pictures/screenshots
 }
 
@@ -59,7 +59,9 @@ install_packages()
 clone_dotfiles()
 {
   cd $HOME
-  git clone git@gitlab.com:qeni/dotfiles.git
+  git init
+  git remote add origin git@gitlab.com:qeni/dotfiles.git
+  git pull
 }
 
 config_other()
