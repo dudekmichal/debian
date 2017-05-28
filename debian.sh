@@ -51,7 +51,7 @@ install_packages()
   vim-nox cmake curl exuberant-ctags lua5.2 xfonts-terminus console-setup \
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   leafpad mpv chromium git htop newsbeuter scrot youtube-dl rtorrent \
-  texmaker texlive zathura \
+  texmaker texlive zathura mc \
   i3lock i3 i3status suckless-tools xterm xbacklight irssi lxrandr \
   p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome -y
 }
