@@ -47,9 +47,9 @@ install_packages()
 {
   echo "==> Installing packages"
   sudo apt install xserver-xorg xinit \
-  dmenu feh alsa-utils \
+  feh alsa-utils \
   vim cmake curl exuberant-ctags lua5.2 xfonts-terminus console-setup \
-  python python2 gcc cmake zsh acpi nethack-console python-autopep8 \
+  python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   leafpad mpv chromium git htop newsbeuter scrot youtube-dl rtorrent \
   texmaker texlive zathura \
   i3lock i3 i3status suckless-tools xterm xbacklight irssi lxrandr \
@@ -60,7 +60,7 @@ clone_dotfiles()
 {
   cd $HOME
   git clone git@gitlab.com:qeni/dotfiles.git $HOME/.dotfiles
-  mv -f $HOME/.dotfiles $HOME/
+  mv -f $HOME/.dotfiles/* $HOME/
 }
 
 config_other()
