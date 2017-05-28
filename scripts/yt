@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# =====================================================
+# This script is used for downloading youtube playlists
+# It requires youtube-dl installed
+#
+# Before use:
+# replace <directory> with download directory
+# replace <user> with yout user name
+# replace <url> with link to your playlist
+# =====================================================
+
+# directory
+DIR="<directory>"
+
+# format of the output files
+FORMAT=22/43/18/best
+
+USER="<user>"
+
+# Watch later playlist
+URL="<url>"
+
+# To download playlist
+URL2=""
+
+# mps-youtube flags 
+FLAGS="--yes-playlist -o $DIR/%(autonumber)s_%(title)s.%(ext)s --autonumber-size 2 --restrict-filenames --no-overwrites --continue"
+
+youtube-dl -f $FORMAT $URL --username $USER $FLAGS
