@@ -59,9 +59,8 @@ install_packages()
 clone_dotfiles()
 {
   cd $HOME
-  git init
-  git remote add origin git@gitlab.com:qeni/dotfiles.git
-  git pull
+  git clone git@gitlab.com:qeni/dotfiles.git $HOME/.dotfiles
+  mv -f $HOME/.dotfiles $HOME/
 }
 
 config_other()
