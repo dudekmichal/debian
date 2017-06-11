@@ -79,12 +79,10 @@ copy_scripts()
 {
   echo "==> Copying scripts"
   sudo cp $REPO/scripts/m /usr/local/bin/
-  sudo cp $REPO/scripts/um /usr/local/bin/
   sudo cp $REPO/scripts/live-usb /usr/local/bin/
   sudo cp $REPO/scripts/take-screenshot /usr/local/bin/
   sudo cp $REPO/scripts/take-screenshot-s /usr/local/bin/
   sudo chmod +x /usr/local/bin/m
-  sudo chmod +x /usr/local/bin/um
   sudo chmod +x /usr/local/bin/live-usb
   sudo chmod +x /usr/local/bin/take-screenshot
   sudo chmod +x /usr/local/bin/take-screenshot-s
