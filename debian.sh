@@ -8,7 +8,7 @@ CONF="$REPO/config"
 # check if executed as a user
 echo "==> Checking if not root"
 if [[ "$UID" == "$ROOT_UID" ]]; then
-  whiptail --title "Arch config" --msgbox \
+  whiptail --title "Debian config" --msgbox \
   "Please run this script as a user" 20 70
   exit 126
 fi
@@ -52,8 +52,10 @@ install_packages()
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   leafpad mpv chromium git htop newsbeuter scrot youtube-dl rtorrent \
   texmaker texlive zathura mc ranger w3m w3m-img\
-  i3lock i3 i3status suckless-tools xterm xbacklight irssi lxrandr \
-  p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome -y
+  i3lock i3 i3status suckless-tools xterm irssi lxrandr \
+  p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome \
+  firmware-brcm80211 wicd-gtk wicd-curses links apg moc \
+  build-essential libncurses5-dev libssl-dev bc man-db -y
 }
 
 clone_dotfiles()
@@ -62,7 +64,7 @@ clone_dotfiles()
   sudo cp -R $HOME/repo/dotfiles/.* $HOME/
   rm -rf $HOME/repo/dotfiles
 
-  sudo chown qeni $HOME/*
+  sudo chown qeni $HOME/* -R
 }
 
 config_other()
