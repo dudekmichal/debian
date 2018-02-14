@@ -47,15 +47,15 @@ install_packages()
 {
   echo "==> Installing packages"
   sudo apt install xserver-xorg xinit \
-  feh alsa-utils \
+  feh alsa-utils electrum hedgewars xbacklight libnotify gcalcli \
   vim-nox cmake curl exuberant-ctags lua5.2 xfonts-terminus console-setup \
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   leafpad mpv chromium git htop newsbeuter scrot youtube-dl rtorrent \
   texmaker texlive zathura mc ranger w3m w3m-img\
-  i3lock i3 i3status suckless-tools xterm irssi lxrandr \
-  p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome \
-  firmware-brcm80211 wicd-gtk wicd-curses links apg moc \
-  build-essential libncurses5-dev libssl-dev bc man-db -y
+  i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr \
+  p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome breeze-icon-theme \
+  firmware-brcm80211 wicd-gtk wicd-curses links apg moc mutt \
+  build-essential libncurses5-dev libssl-dev bc man-db mpd ncmpcpp mpc -y
 }
 
 clone_dotfiles()
