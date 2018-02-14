@@ -30,9 +30,6 @@ create_directories()
 clone_repositories()
 {
   echo "==> Cloning repositories"
-  # git clone git@gitlab.com:qeni/documents.git $HOME/repo/
-  # git clone git@gitlab.com:qeni/sem_6.git $HOME/repo/
-  # git clone git@gitlab.com:qeni/room-raspberry.git $HOME/repo/
 }
 
 config_apt()
