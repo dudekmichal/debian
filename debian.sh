@@ -3,13 +3,12 @@
 echo "==> Setting global variables"
 ROOT_UID=0
 REPO="$HOME/repo/debian"
-CONF="$REPO/config"
 
 # check if executed as a user
 echo "==> Checking if not root"
 if [[ "$UID" == "$ROOT_UID" ]]; then
-  whiptail --title "Debian config" --msgbox \
-  "Please run this script as a user" 20 70
+  #whiptail --title "Debian config" --msgbox \
+  #"Please run this script as a user" 20 70
   exit 126
 fi
 
@@ -23,7 +22,7 @@ create_directories()
   mkdir $HOME/music
   mkdir $HOME/movies
   mkdir $HOME/downloads
-  mkdir -p $HOME/repo
+  mkdir $HOME/repo
   mkdir -p $HOME/pictures/screenshots
 }
 
@@ -34,7 +33,7 @@ clone_repositories()
 
 config_apt()
 {
-  sudo sh -c "cat $CONF/sources.list > /etc/apt/sources.list"
+  sudo sh -c "cat sources.list > /etc/apt/sources.list"
 
   sudo apt update -y
   sudo apt upgrade -y
@@ -58,10 +57,8 @@ install_packages()
 clone_dotfiles()
 {
   git clone git@gitlab.com:qeni/dotfiles.git $HOME/repo/dotfiles
-  sudo cp -R $HOME/repo/dotfiles/.* $HOME/
+  cp -R $HOME/repo/dotfiles/.* $HOME/
   rm -rf $HOME/repo/dotfiles
-
-  sudo chown qeni $HOME/* -R
 }
 
 config_other()
@@ -71,7 +68,6 @@ config_other()
   xrdb -merge $HOME/.Xresources
 
   sudo mkdir -p /var/games/nethack
-  sudo cp $CONF/record /var/games/nethack/record
 }
 
 copy_scripts()
