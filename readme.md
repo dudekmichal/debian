@@ -1,7 +1,5 @@
-Before running the script:
-1. copy id_rsa
-2. mkdir repo
-3. cd repo
-4. sudo apt install sudo git
-5. git clone git@gitlab.com:qeni/debian.git
-6. visudo -> user ALL=(ALL) NOPASSWD:ALL
+Before running `debian.sh` do:
+1. mkdir ~/repo
+2. sudo apt install sudo git
+3. git clone https://github.com/qeni/debian.git ~/repo/debian
+4. visudo -> username ALL=(ALL) NOPASSWD:ALL

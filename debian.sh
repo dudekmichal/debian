@@ -4,25 +4,29 @@ echo "==> Setting global variables"
 ROOT_UID=0
 REPO="$HOME/repo/debian"
 
-# check if executed as a user
+# clone repo to the correct location
+if [[ ! -d $REPO ]]; then
+    mkdir -p $HOME/repo
+    git clone https://github.com/qeni/debian.git $REPO
+fi;
+
+# check if script is executed by non-root user
 echo "==> Checking if not root"
 if [[ "$UID" == "$ROOT_UID" ]]; then
-  #whiptail --title "Debian config" --msgbox \
-  #"Please run this script as a user" 20 70
+  echo "Please run this script as a user"
   exit 126
 fi
 
-# create directories
 create_directories()
 {
   echo "==> Creating directories"
-  mkdir $HOME/tmp
-  mkdir $HOME/mnt
-  mkdir $HOME/documents
-  mkdir $HOME/music
-  mkdir $HOME/movies
-  mkdir $HOME/downloads
-  mkdir $HOME/repo
+  mkdir -p $HOME/tmp
+  mkdir -p $HOME/mnt
+  mkdir -p $HOME/documents
+  mkdir -p $HOME/music
+  mkdir -p $HOME/movies
+  mkdir -p $HOME/downloads
+  mkdir -p $HOME/repo
   mkdir -p $HOME/pictures/screenshots
 }
 
@@ -34,6 +38,8 @@ clone_repositories()
 config_apt()
 {
   sudo sh -c "cat sources.list > /etc/apt/sources.list"
+
+  sudo vi /etc/apt/sources.list
 
   sudo apt update -y
   sudo apt upgrade -y
@@ -48,15 +54,25 @@ install_packages()
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   leafpad mpv chromium git htop newsbeuter scrot youtube-dl rtorrent \
   texmaker texlive zathura mc ranger w3m w3m-img\
-  i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr \
-  p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome breeze-icon-theme \
+  i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr help2man \
+  dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome breeze-icon-theme \
   firmware-brcm80211 wicd-gtk wicd-curses links apg moc mutt \
-  build-essential libncurses5-dev libssl-dev bc man-db mpd ncmpcpp mpc -y
+  build-essential libncurses5-dev libssl-dev man-db mpd ncmpcpp mpc -y
+}
+
+install_cli_packages()
+{
+  echo "==> Installing packages"
+  sudo apt install vim-nox xfonts-terminus console-setup \
+  python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
+  git htop newsbeuter rtorrent mc ranger w3m w3m-img irssi dtrx \
+  ssh firmware-brcm80211 wicd-curses links apg mutt build-essential \
+  libncurses5-dev libssl-dev man-db mpd ncmpcpp mpc -y
 }
 
 clone_dotfiles()
 {
-  git clone git@gitlab.com:qeni/dotfiles.git $HOME/repo/dotfiles
+  git clone https://github.com/qeni/dotfiles.git $HOME/repo/dotfiles
   cp -R $HOME/repo/dotfiles/.* $HOME/
   rm -rf $HOME/repo/dotfiles
 }
@@ -68,19 +84,10 @@ config_other()
   xrdb -merge $HOME/.Xresources
 
   sudo mkdir -p /var/games/nethack
-}
 
-copy_scripts()
-{
-  echo "==> Copying scripts"
-  sudo cp $REPO/scripts/m /usr/local/bin/
-  sudo cp $REPO/scripts/live-usb /usr/local/bin/
-  sudo cp $REPO/scripts/take-screenshot /usr/local/bin/
-  sudo cp $REPO/scripts/take-screenshot-s /usr/local/bin/
-  sudo chmod +x /usr/local/bin/m
-  sudo chmod +x /usr/local/bin/live-usb
-  sudo chmod +x /usr/local/bin/take-screenshot
-  sudo chmod +x /usr/local/bin/take-screenshot-s
+  git clone https://github.com/haikarainen/light $HOME/tmp/light
+  cd $HOME/tmp/light
+  make && sudo make install
 }
 
 other_settings()
@@ -107,9 +114,9 @@ main()
   clone_repositories
   config_apt
   install_packages
+  #install_cli_packages
   clone_dotfiles
   config_other
-  copy_scripts
   other_settings
 }
 
