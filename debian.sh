@@ -38,7 +38,6 @@ clone_repositories()
 config_apt()
 {
   sudo sh -c "cat sources.list > /etc/apt/sources.list"
-
   sudo vi /etc/apt/sources.list
 
   sudo apt update -y
@@ -48,6 +47,7 @@ config_apt()
 install_packages()
 {
   echo "==> Installing packages"
+  # non-free wireless driver for Lenovo G580: firmware-brcm80211
   sudo apt install xserver-xorg xinit \
   feh alsa-utils electrum hedgewars xbacklight libnotify gcalcli \
   vim-nox cmake curl exuberant-ctags lua5.2 xfonts-terminus console-setup \
@@ -56,7 +56,7 @@ install_packages()
   texmaker texlive zathura mc ranger w3m w3m-img\
   i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr help2man \
   dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome breeze-icon-theme \
-  firmware-brcm80211 wicd-gtk wicd-curses links apg moc mutt \
+  wicd-gtk wicd-curses links apg moc mutt \
   build-essential libncurses5-dev libssl-dev man-db mpd ncmpcpp mpc -y
 }
 
@@ -66,13 +66,16 @@ install_cli_packages()
   sudo apt install vim-nox xfonts-terminus console-setup \
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   git htop newsbeuter rtorrent mc ranger w3m w3m-img irssi dtrx \
-  ssh firmware-brcm80211 wicd-curses links apg mutt build-essential \
+  ssh wicd-curses links apg mutt build-essential \
   libncurses5-dev libssl-dev man-db mpd ncmpcpp mpc -y
 }
 
 clone_dotfiles()
 {
-  git clone https://github.com/qeni/dotfiles.git $HOME/repo/dotfiles
+  if [[ ! -d $HOME/repo/dotfiles ]]; then
+    git clone https://github.com/qeni/dotfiles.git $HOME/repo/dotfiles
+  fi;
+
   cp -R $HOME/repo/dotfiles/.* $HOME/
   rm -rf $HOME/repo/dotfiles
 }
