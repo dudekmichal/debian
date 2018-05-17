@@ -91,6 +91,10 @@ config_other()
   git clone https://github.com/haikarainen/light $HOME/tmp/light
   cd $HOME/tmp/light
   make && sudo make install
+
+  sudo mv ~/.mpd/mpd.conf /etc/mpd.conf
+  sudo systemctl enable mpd
+  sudo systemctl start mpd
 }
 
 other_settings()
