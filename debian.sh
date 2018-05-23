@@ -25,7 +25,7 @@ create_directories()
   mkdir -p $HOME/documents
   mkdir -p $HOME/music
   mkdir -p $HOME/movies
-  mkdir -p $HOME/downloads
+  mkdir -p $HOME/download
   mkdir -p $HOME/repo
   mkdir -p $HOME/pictures/screenshots
 }
@@ -91,6 +91,7 @@ config_other()
   git clone https://github.com/haikarainen/light $HOME/tmp/light
   cd $HOME/tmp/light
   make && sudo make install
+  cd $HOME && rm -rf $HOME/tmp/light
 
   sudo mv ~/.mpd/mpd.conf /etc/mpd.conf
   sudo systemctl enable mpd
