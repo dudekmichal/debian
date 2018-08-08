@@ -27,7 +27,7 @@ create_directories()
   mkdir -p $HOME/movies
   mkdir -p $HOME/download
   mkdir -p $HOME/repo
-  mkdir -p $HOME/pictures/screenshots
+  mkdir -p $HOME/pictures
 }
 
 clone_repositories()
@@ -88,14 +88,14 @@ config_other()
 
   sudo mkdir -p /var/games/nethack
 
-  git clone https://github.com/haikarainen/light $HOME/tmp/light
-  cd $HOME/tmp/light
-  make && sudo make install
-  cd $HOME && rm -rf $HOME/tmp/light
+  # git clone https://github.com/haikarainen/light $HOME/tmp/light
+  # cd $HOME/tmp/light
+  # make && sudo make install
+  # cd $HOME && rm -rf $HOME/tmp/light
 
-  sudo mv ~/.mpd/mpd.conf /etc/mpd.conf
-  sudo systemctl enable mpd
-  sudo systemctl start mpd
+  # sudo mv ~/.mpd/mpd.conf /etc/mpd.conf
+  # sudo systemctl enable mpd
+  # sudo systemctl start mpd
 }
 
 other_settings()
