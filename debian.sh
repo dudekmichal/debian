@@ -43,11 +43,20 @@ clone_repositories()
 
 config_apt()
 {
-  sudo sh -c "cat sources.list > /etc/apt/sources.list"
+  echo -e ${MAIN}"==> Configuration of sources.list"${NC}
+  sudo sh -c "cat config/sources.list > /etc/apt/sources.list"
   sudo vi /etc/apt/sources.list
 
   sudo apt update -y
   sudo apt upgrade -y
+}
+
+config_logind()
+{
+  echo -e ${MAIN}"==> Configuration of logind"${NC}
+  sudo sh -c "cat config/logind.conf < /etc/systemd/logind.conf"
+  sudo vi /etc/systemd/logind.conf
+  sudo systemctl restart systemd-logind.service
 }
 
 install_packages()
@@ -112,6 +121,7 @@ other_settings()
   echo -e ${MAIN}"==> Disabling beep"${NC}
   sudo rmmod pcspkr
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
+  sudo sh -c "cat config/inputrc > /etc/inputrc"
 
   echo -e ${MAIN}"==> Disabling capslock"${NC}
   setxkbmap -option caps:escape &
@@ -130,6 +140,7 @@ main()
   create_directories
   clone_repositories
   config_apt
+  config_logind
   install_packages
   # install_cli_packages
   # install_lenovo_g580_drivers
