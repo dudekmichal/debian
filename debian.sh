@@ -7,7 +7,7 @@ REPO="$HOME/repo/debian"
 # clone repo to the correct location
 if [[ ! -d $REPO ]]; then
     mkdir -p $HOME/repo
-    git clone https://github.com/qeni/debian.git $REPO
+    git clone https://github.com/dudekmichal/debian.git $REPO
 fi;
 
 # check if script is executed by non-root user
@@ -47,17 +47,14 @@ config_apt()
 install_packages()
 {
   echo "==> Installing packages"
-  # non-free wireless driver for Lenovo G580: firmware-brcm80211
-  sudo apt install xserver-xorg xinit \
-  feh alsa-utils electrum hedgewars xbacklight libnotify gcalcli \
-  vim-nox cmake curl exuberant-ctags lua5.2 xfonts-terminus console-setup \
-  python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
-  leafpad mpv chromium git htop newsbeuter scrot youtube-dl rtorrent \
-  zathura mc ranger w3m w3m-img \
+  sudo apt install xserver-xorg xinit feh alsa-utils electrum xbacklight \
+  gcalcli vim-nox cmake curl exuberant-ctags lua5.2 xfonts-terminus \
+  console-setup python3 python gcc cmake zsh acpi nethack-console mpv git \
+  htop newsbeuter scrot youtube-dl rtorrent zathura mc ranger w3m w3m-img \
   i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr help2man \
-  dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome breeze-icon-theme \
-  wicd-gtk wicd-curses links apg moc mutt \
-  build-essential libncurses5-dev libssl-dev man-db mpd ncmpcpp mpc -y
+  dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome \
+  breeze-icon-theme links apg moc mutt build-essential libncurses5-dev \
+  libssl-dev man-db mpd ncmpcpp mpc net-tools
 }
 
 install_cli_packages()
@@ -66,14 +63,20 @@ install_cli_packages()
   sudo apt install vim-nox xfonts-terminus console-setup \
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   git htop newsbeuter rtorrent mc ranger w3m w3m-img irssi dtrx \
-  ssh wicd-curses links apg mutt build-essential \
+  ssh links apg mutt build-essential \
   libncurses5-dev libssl-dev man-db mpd ncmpcpp mpc -y
+}
+
+install_lenovo_g580_drivers()
+{
+  echo "==> Installing drivers for Lenovo G580"
+  sudo apt install firmware-brcm80211
 }
 
 clone_dotfiles()
 {
   if [[ ! -d $HOME/repo/dotfiles ]]; then
-    git clone https://github.com/qeni/dotfiles.git $HOME/repo/dotfiles
+    git clone https://github.com/dudekmichal/dotfiles.git $HOME/repo/dotfiles
   fi;
 
   cp -R $HOME/repo/dotfiles/.* $HOME/
@@ -122,7 +125,8 @@ main()
   clone_repositories
   config_apt
   install_packages
-  #install_cli_packages
+  # install_cli_packages
+  # install_lenovo_g580_drivers
   clone_dotfiles
   config_other
   other_settings
