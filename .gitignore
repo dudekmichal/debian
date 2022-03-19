@@ -13,3 +13,4 @@ __pychache__/
 .venv
 *.log
 *.swp
+.idea

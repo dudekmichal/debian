@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-echo "==> Setting global variables"
+# colors
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+MAIN=${BLUE}
+
+echo -e ${MAIN}"==> Setting global variables"${NC}
 ROOT_UID=0
 REPO="$HOME/repo/debian"
 
@@ -11,7 +17,7 @@ if [[ ! -d $REPO ]]; then
 fi;
 
 # check if script is executed by non-root user
-echo "==> Checking if not root"
+echo -e ${MAIN}"==> Checking if not root"${NC}
 if [[ "$UID" == "$ROOT_UID" ]]; then
   echo "Please run this script as a user"
   exit 126
@@ -19,7 +25,7 @@ fi
 
 create_directories()
 {
-  echo "==> Creating directories"
+  echo -e ${MAIN}"==> Creating directories"${NC}
   mkdir -p $HOME/tmp
   mkdir -p $HOME/mnt
   mkdir -p $HOME/documents
@@ -32,7 +38,7 @@ create_directories()
 
 clone_repositories()
 {
-  echo "==> Cloning repositories"
+  echo -e ${MAIN}"==> Cloning repositories"${NC}
 }
 
 config_apt()
@@ -46,7 +52,7 @@ config_apt()
 
 install_packages()
 {
-  echo "==> Installing packages"
+  echo -e ${MAIN}"==> Installing packages"${NC}
   sudo apt install xserver-xorg xinit feh alsa-utils electrum xbacklight \
   gcalcli vim-nox cmake curl exuberant-ctags lua5.2 xfonts-terminus \
   console-setup python3 python gcc cmake zsh acpi nethack-console mpv git \
@@ -59,7 +65,7 @@ install_packages()
 
 install_cli_packages()
 {
-  echo "==> Installing packages"
+  echo -e ${MAIN}"==> Installing packages"${NC}
   sudo apt install vim-nox xfonts-terminus console-setup \
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   git htop newsbeuter rtorrent mc ranger w3m w3m-img irssi dtrx \
@@ -69,8 +75,8 @@ install_cli_packages()
 
 install_lenovo_g580_drivers()
 {
-  echo "==> Installing drivers for Lenovo G580"
-  sudo apt install firmware-brcm80211
+  echo -e ${MAIN}"==> Installing drivers for Lenovo G580"${NC}
+  sudo apt install firmware-brcm80211 firmware-iwlwifi
 }
 
 clone_dotfiles()
@@ -85,7 +91,7 @@ clone_dotfiles()
 
 config_other()
 {
-  echo "==> Setting other packages"
+  echo -e ${MAIN}"==> Setting other packages"${NC}
   chsh -s /bin/zsh $USER
   xrdb -merge $HOME/.Xresources
 
@@ -103,17 +109,17 @@ config_other()
 
 other_settings()
 {
-  echo "==> Disabling beep"
+  echo -e ${MAIN}"==> Disabling beep"${NC}
   sudo rmmod pcspkr
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
 
-  echo "==> Disabling capslock"
+  echo -e ${MAIN}"==> Disabling capslock"${NC}
   setxkbmap -option caps:escape &
 
-  echo "==> Setting console font"
+  echo -e ${MAIN}"==> Setting console font"${NC}
   sudo dpkg-reconfigure console-setup
 
-  echo "==> Setting grub"
+  echo -e ${MAIN}"==> Setting grub"${NC}
   sudo vi /etc/default/grub
   sudo update-grub
 }
