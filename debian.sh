@@ -33,7 +33,9 @@ create_directories()
   mkdir -p $HOME/movies
   mkdir -p $HOME/download
   mkdir -p $HOME/repo
-  mkdir -p $HOME/pictures
+  mkdir -p $HOME/pictures/screenshots
+  mkdir -p $HOME/.mpd/playlists
+  mkdir -p $HOME/.mpd/lyrics
 }
 
 clone_repositories()
@@ -69,7 +71,8 @@ install_packages()
   i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr help2man \
   dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome \
   breeze-icon-theme links apg moc mutt build-essential libncurses5-dev \
-  libssl-dev man-db mpd ncmpcpp mpc net-tools
+  libssl-dev man-db mpd ncmpcpp mpc net-tools acpi network-manager \
+  pulseaudio
 }
 
 install_cli_packages()
@@ -85,7 +88,7 @@ install_cli_packages()
 install_lenovo_g580_drivers()
 {
   echo -e ${MAIN}"==> Installing drivers for Lenovo G580"${NC}
-  sudo apt install firmware-brcm80211 firmware-iwlwifi
+  sudo apt install firmware-brcm80211 firmware-iwlwifi firmware-b43-installer
 }
 
 clone_dotfiles()
@@ -106,14 +109,10 @@ config_other()
 
   sudo mkdir -p /var/games/nethack
 
-  # git clone https://github.com/haikarainen/light $HOME/tmp/light
-  # cd $HOME/tmp/light
-  # make && sudo make install
-  # cd $HOME && rm -rf $HOME/tmp/light
-
-  # sudo mv ~/.mpd/mpd.conf /etc/mpd.conf
-  # sudo systemctl enable mpd
-  # sudo systemctl start mpd
+  systemctl --user enable mpd
+  systemctl --user start mpd
+  sudo systemctl enable NetworkManager.service
+  sudo systemctl start NetworkManager.service
 }
 
 other_settings()
@@ -132,6 +131,8 @@ other_settings()
   echo -e ${MAIN}"==> Setting grub"${NC}
   sudo vi /etc/default/grub
   sudo update-grub
+
+  sudo usermod -a -G pulse,pulse-access,audio ${USER}
 }
 
 
