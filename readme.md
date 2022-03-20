@@ -4,6 +4,8 @@
   Debian configuration
 </h1>
 
+Script for automated configuration of fresh installed Debian. Script also copies my personal dotfiles from [dudekmichal/dotfiles](https://github.com/dudekmichal/dotfiles).
+
 1. mkdir ~/repo
 2. su
 3. apt install sudo git
