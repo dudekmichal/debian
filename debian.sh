@@ -147,7 +147,7 @@ main()
   config_apt
   # install_packages
   install_dev_tools
-  install_asus_ac51_driver
+  install_drivers
   install_gnome
   install_tweak_packages
   # install_cli_packages
