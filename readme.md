@@ -8,8 +8,8 @@ Script for automated configuration of fresh installed Debian. Script also copies
 
 1. mkdir ~/repo
 2. su
-3. apt install sudo git
-4. visudo -> add line
+3. apt install sudo git vim
+4. vim /etc/sudoers 
 `username ALL=(ALL)`
 or
 `username ALL=(ALL) NOPASSWD:ALL` (unsafe)

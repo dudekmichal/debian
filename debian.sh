@@ -12,13 +12,13 @@ REPO="$HOME/repo/debian"
 
 # clone repo to the correct location
 if [[ ! -d $REPO ]]; then
-    mkdir -p $HOME/repo
-    git clone https://github.com/dudekmichal/debian.git $REPO
+  mkdir -p $HOME/repo
+  git clone https://github.com/dudekmichal/debian.git $REPO
 fi;
 
 # check if script is executed by non-root user
 echo -e ${MAIN}"==> Checking if not root"${NC}
-if [[ "$UID" == "$ROOT_UID" ]]; then
+if [[ "${UID}" == "${ROOT_UID}" ]]; then
   echo "Please run this script as a user"
   exit 126
 fi
@@ -26,13 +26,13 @@ fi
 create_directories()
 {
   echo -e ${MAIN}"==> Creating directories"${NC}
+  mkdir -p $HOME/documents
+  mkdir -p $HOME/download
+  mkdir -p $HOME/movies
+  mkdir -p $HOME/music
+  mkdir -p $HOME/repo
   mkdir -p $HOME/tmp
   mkdir -p $HOME/mnt
-  mkdir -p $HOME/documents
-  mkdir -p $HOME/music
-  mkdir -p $HOME/movies
-  mkdir -p $HOME/download
-  mkdir -p $HOME/repo
   mkdir -p $HOME/pictures/screenshots
   mkdir -p $HOME/.mpd/playlists
   mkdir -p $HOME/.mpd/lyrics
@@ -53,14 +53,6 @@ config_apt()
   sudo apt upgrade -y
 }
 
-config_logind()
-{
-  echo -e ${MAIN}"==> Configuration of logind"${NC}
-  sudo sh -c "cat config/logind.conf < /etc/systemd/logind.conf"
-  sudo vi /etc/systemd/logind.conf
-  sudo systemctl restart systemd-logind.service
-}
-
 install_packages()
 {
   echo -e ${MAIN}"==> Installing packages"${NC}
@@ -70,7 +62,7 @@ install_packages()
   htop newsbeuter scrot youtube-dl rtorrent zathura mc ranger w3m w3m-img \
   i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr help2man \
   dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome \
-  breeze-icon-theme links apg moc mutt build-essential libncurses5-dev \
+  breeze-icon-theme links apg moc mutt \
   libssl-dev man-db mpd ncmpcpp mpc net-tools acpi network-manager \
   pulseaudio
 }
@@ -81,14 +73,17 @@ install_cli_packages()
   sudo apt install vim-nox xfonts-terminus console-setup \
   python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
   git htop newsbeuter rtorrent mc ranger w3m w3m-img irssi dtrx \
-  ssh links apg mutt build-essential \
-  libncurses5-dev libssl-dev man-db mpd ncmpcpp mpc -y
+  ssh links apg mutt man-db mpd ncmpcpp mpc -y
 }
 
-install_lenovo_g580_drivers()
+install_gnome()
 {
-  echo -e ${MAIN}"==> Installing drivers for Lenovo G580"${NC}
-  sudo apt install firmware-brcm80211 firmware-iwlwifi firmware-b43-installer
+  sudo apt install gnome gnome-boxes
+}
+
+install_tweak_packages()
+{
+  sudo apt install faenza-icon-theme gnome-tweak-tool
 }
 
 clone_dotfiles()
@@ -107,20 +102,18 @@ config_other()
   chsh -s /bin/zsh $USER
   xrdb -merge $HOME/.Xresources
 
-  sudo mkdir -p /var/games/nethack
-
-  systemctl --user enable mpd
-  systemctl --user start mpd
-  sudo systemctl enable NetworkManager.service
-  sudo systemctl start NetworkManager.service
+  # systemctl --user enable mpd
+  # systemctl --user start mpd
+  # sudo systemctl enable NetworkManager.service
+  # sudo systemctl start NetworkManager.service
 }
 
 other_settings()
 {
-  echo -e ${MAIN}"==> Disabling beep"${NC}
-  sudo rmmod pcspkr
-  sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
-  sudo sh -c "cat config/inputrc > /etc/inputrc"
+  # echo -e ${MAIN}"==> Disabling beep"${NC}
+  # sudo rmmod pcspkr
+  # sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
+  # sudo sh -c "cat config/inputrc > /etc/inputrc"
 
   echo -e ${MAIN}"==> Disabling capslock"${NC}
   setxkbmap -option caps:escape &
@@ -131,20 +124,33 @@ other_settings()
   echo -e ${MAIN}"==> Setting grub"${NC}
   sudo vi /etc/default/grub
   sudo update-grub
-
-  sudo usermod -a -G pulse,pulse-access,audio ${USER}
 }
 
+install_drivers()
+{
+  # asus_ac51_driver
+  sudo apt install firmware-misc-nonfree
+
+  # RTX 2070
+  sudo apt install nvidia-driver
+}
+
+install_dev_tools()
+{
+  sudo apt install build-essential libncurses-dev bison flex libssl-dev libelf-dev gcc vim git gnome-boxes
+}
 
 main()
 {
   create_directories
   clone_repositories
   config_apt
-  config_logind
-  install_packages
+  # install_packages
+  install_dev_tools
+  install_asus_ac51_driver
+  install_gnome
+  install_tweak_packages
   # install_cli_packages
-  # install_lenovo_g580_drivers
   clone_dotfiles
   config_other
   other_settings
