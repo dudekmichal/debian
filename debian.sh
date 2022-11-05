@@ -64,7 +64,7 @@ install_packages()
   dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome \
   breeze-icon-theme links apg moc mutt \
   libssl-dev man-db mpd ncmpcpp mpc net-tools acpi network-manager \
-  pulseaudio
+  pulseaudio tmux fonts-inconsolata
 }
 
 install_cli_packages()
@@ -78,7 +78,7 @@ install_cli_packages()
 
 install_gnome()
 {
-  sudo apt install gnome gnome-boxes
+  sudo apt install gnome gnome-boxes fonts-powerline
 }
 
 install_tweak_packages()
@@ -99,7 +99,7 @@ clone_dotfiles()
 config_other()
 {
   echo -e ${MAIN}"==> Setting other packages"${NC}
-  chsh -s /bin/zsh $USER
+  chsh -s /usr/bin/zsh $USER
   xrdb -merge $HOME/.Xresources
 
   # systemctl --user enable mpd
@@ -138,6 +138,16 @@ install_drivers()
 install_dev_tools()
 {
   sudo apt install build-essential libncurses-dev bison flex libssl-dev libelf-dev gcc vim git gnome-boxes
+}
+
+config_zsh()
+{
+  sudo apt install vim zsh fonts-powerline -y
+  chsh -s /usr/bin/zsh
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  # TODO: will work without zsh restart?
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  vim ~/.zshrc
 }
 
 main()
