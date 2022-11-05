@@ -4,15 +4,20 @@
   Debian configuration
 </h1>
 
-Script for automated configuration of fresh installed Debian. Script also copies my personal dotfiles from [dudekmichal/dotfiles](https://github.com/dudekmichal/dotfiles).
+Script for automated configuration of fresh installed Debian.
 
-1. mkdir ~/repo
-2. su
-3. apt install sudo git vim
-4. vim /etc/sudoers 
-`username ALL=(ALL)`
-or
-`username ALL=(ALL) NOPASSWD:ALL` (unsafe)
-5. exit
-6. git clone https://github.com/dudekmichal/debian.git ~/repo/debian
-7. bash ~/repo/debian/debian.sh
+Script also copies my personal dotfiles from [dudekmichal/dotfiles](https://github.com/dudekmichal/dotfiles).
+
+```bash
+$ mkdir ~/repo
+$ su
+$ apt install sudo git vim
+$ vim /etc/sudoers 
+  username ALL=(ALL) NOPASSWD:ALL
+$ exit
+$ git clone https://github.com/dudekmichal/debian.git ~/repo/debian
+$ bash ~/repo/debian/debian.sh
+```
+
+
+

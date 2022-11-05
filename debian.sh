@@ -78,7 +78,7 @@ install_cli_packages()
 
 install_gnome()
 {
-  sudo apt install gnome gnome-boxes fonts-powerline
+  sudo apt install gnome gnome-boxes fonts-powerline faenza-icon-theme
 }
 
 install_tweak_packages()
@@ -110,14 +110,6 @@ config_other()
 
 other_settings()
 {
-  # echo -e ${MAIN}"==> Disabling beep"${NC}
-  # sudo rmmod pcspkr
-  # sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
-  # sudo sh -c "cat config/inputrc > /etc/inputrc"
-
-  echo -e ${MAIN}"==> Disabling capslock"${NC}
-  setxkbmap -option caps:escape &
-
   echo -e ${MAIN}"==> Setting console font"${NC}
   sudo dpkg-reconfigure console-setup
 
@@ -159,7 +151,6 @@ main()
   install_dev_tools
   install_drivers
   install_gnome
-  install_tweak_packages
   # install_cli_packages
   clone_dotfiles
   config_other
