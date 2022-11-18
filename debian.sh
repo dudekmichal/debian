@@ -6,20 +6,17 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 MAIN=${BLUE}
 ROOT_UID=0
-REPO="$HOME/src/debian"
 
-# clone repo to the correct location
-if [[ ! -d $REPO ]]; then
-  mkdir -p $HOME/src
-  git clone https://github.com/dudekmichal/debian.git $REPO
-fi;
 
-# check if script is executed by non-root user
-echo -e ${MAIN}"==> Checking if not root"${NC}
-if [[ "${UID}" == "${ROOT_UID}" ]]; then
-  echo "Please run this script as a user"
-  exit 126
-fi
+verify_user()
+{
+  # check if script is executed by non-root user
+  echo -e ${MAIN}"==> Checking if not root"${NC}
+  if [[ "${UID}" == "${ROOT_UID}" ]]; then
+    echo "Please run this script as a user"
+    exit 126
+  fi
+}
 
 create_directories()
 {
@@ -35,6 +32,8 @@ create_directories()
 clone_repositories()
 {
   echo -e ${MAIN}"==> Cloning repositories"${NC}
+  git clone git@github.com:dudekmichal/debian.git $HOME/src/debian
+  git clone git@github.com:dudekmichal/dotfiles.git $HOME/src/dotfiles
 }
 
 config_apt()
@@ -113,14 +112,10 @@ install_dev_tools()
   git
 }
 
-clone_dotfiles()
+setup_dotfiles()
 {
-  if [[ ! -d $HOME/src/dotfiles ]]; then
-    git clone https://github.com/dudekmichal/dotfiles.git $HOME/src/dotfiles
-  fi;
-
-  # cp -R $HOME/src/dotfiles/.* $HOME/
-  # rm -rf $HOME/src/dotfiles
+  rsync -ah --exclude ".git*" $HOME/src/dotfiles/.* $HOME/
+  # rm -rf $HOME/.git
 }
 
 config_other()
@@ -156,6 +151,7 @@ config_zsh()
 
 main()
 {
+  verify_user
   create_directories
   clone_repositories
   config_apt
@@ -164,7 +160,7 @@ main()
   install_tweak_packages
   install_drivers
   install_dev_tools
-  clone_dotfiles
+  setup_dotfiles
   config_zsh
   config_other
   other_settings
