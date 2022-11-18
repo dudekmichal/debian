@@ -25,19 +25,6 @@ create_directories()
 {
   echo -e ${MAIN}"==> Creating directories"${NC}
 
-  # v1
-  # mkdir -p $HOME/documents
-  # mkdir -p $HOME/download
-  # mkdir -p $HOME/movies
-  # mkdir -p $HOME/music
-  # mkdir -p $HOME/repo
-  # mkdir -p $HOME/tmp
-  # mkdir -p $HOME/mnt
-  # mkdir -p $HOME/pictures/screenshots
-  # mkdir -p $HOME/.mpd/playlists
-  # mkdir -p $HOME/.mpd/lyrics
-
-  # v2
   mkdir $HOME/doc
   mkdir $HOME/tmp
   mkdir $HOME/src
@@ -164,7 +151,8 @@ config_zsh()
   sudo apt install vim zsh fonts-powerline -y
   chsh -s /usr/bin/zsh
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/src/powerlevel10k
-  echo 'source ~/src/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+  echo "[[ ! -f ~/src/dotfiles/.aliasrc ]] || source ~/.aliasrc" >>~/.zshrc
+  echo "source ~/src/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
 }
 
 main()
