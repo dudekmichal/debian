@@ -55,7 +55,7 @@ install_packages()
   xserver-xorg \
   nethack-qt \
   youtube-dl \
-  redshift \
+  # redshift \
   xinit \
   scrot \
   unzip \
@@ -106,7 +106,6 @@ install_dev_tools()
   libssl-dev \
   cmake curl \
   python3 \
-  python \
   bison \
   flex \
   gcc \
@@ -150,9 +149,9 @@ config_zsh()
 {
   sudo apt install vim zsh fonts-powerline -y
   chsh -s /usr/bin/zsh
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/src/powerlevel10k
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.config/powerlevel10k
   echo "[[ ! -f ~/src/dotfiles/.aliasrc ]] || source ~/.aliasrc" >>~/.zshrc
-  echo "source ~/src/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
+  echo "source ~/.config/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
 }
 
 main()
