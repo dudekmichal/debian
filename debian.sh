@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
 
-# colors
+echo -e ${MAIN}"==> Setting global variables"${NC}
 RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 MAIN=${BLUE}
-
-echo -e ${MAIN}"==> Setting global variables"${NC}
 ROOT_UID=0
-REPO="$HOME/repo/debian"
+REPO="$HOME/src/debian"
 
 # clone repo to the correct location
 if [[ ! -d $REPO ]]; then
-  mkdir -p $HOME/repo
+  mkdir -p $HOME/src
   git clone https://github.com/dudekmichal/debian.git $REPO
 fi;
 
@@ -26,16 +24,25 @@ fi
 create_directories()
 {
   echo -e ${MAIN}"==> Creating directories"${NC}
-  mkdir -p $HOME/documents
-  mkdir -p $HOME/download
-  mkdir -p $HOME/movies
-  mkdir -p $HOME/music
-  mkdir -p $HOME/repo
-  mkdir -p $HOME/tmp
-  mkdir -p $HOME/mnt
-  mkdir -p $HOME/pictures/screenshots
-  mkdir -p $HOME/.mpd/playlists
-  mkdir -p $HOME/.mpd/lyrics
+
+  # v1
+  # mkdir -p $HOME/documents
+  # mkdir -p $HOME/download
+  # mkdir -p $HOME/movies
+  # mkdir -p $HOME/music
+  # mkdir -p $HOME/repo
+  # mkdir -p $HOME/tmp
+  # mkdir -p $HOME/mnt
+  # mkdir -p $HOME/pictures/screenshots
+  # mkdir -p $HOME/.mpd/playlists
+  # mkdir -p $HOME/.mpd/lyrics
+
+  # v2
+  mkdir $HOME/doc
+  mkdir $HOME/tmp
+  mkdir $HOME/src
+  mkdir $HOME/img
+  mkdir $HOME/msc
 }
 
 clone_repositories()
@@ -49,51 +56,85 @@ config_apt()
   sudo sh -c "cat config/sources.list > /etc/apt/sources.list"
   sudo vi /etc/apt/sources.list
 
-  sudo apt update -y
-  sudo apt upgrade -y
+  sudo apt update
+  sudo apt upgrade
 }
 
 install_packages()
 {
   echo -e ${MAIN}"==> Installing packages"${NC}
-  sudo apt install xserver-xorg xinit feh alsa-utils electrum xbacklight \
-  gcalcli vim-nox cmake curl exuberant-ctags lua5.2 xfonts-terminus \
-  console-setup python3 python gcc cmake zsh acpi nethack-console mpv git \
-  htop newsbeuter scrot youtube-dl rtorrent zathura mc ranger w3m w3m-img \
-  i3lock i3 i3status rofi suckless-tools xterm irssi lxrandr help2man \
-  dtrx p7zip unrar-free unzip ssh gmtp redshift fonts-font-awesome \
-  breeze-icon-theme links apg moc mutt \
-  libssl-dev man-db mpd ncmpcpp mpc net-tools acpi network-manager \
-  pulseaudio tmux fonts-inconsolata
-}
-
-install_cli_packages()
-{
-  echo -e ${MAIN}"==> Installing packages"${NC}
-  sudo apt install vim-nox xfonts-terminus console-setup \
-  python3 python gcc cmake zsh acpi nethack-console python-autopep8 \
-  git htop newsbeuter rtorrent mc ranger w3m w3m-img irssi dtrx \
-  ssh links apg mutt man-db mpd ncmpcpp mpc -y
+  sudo apt install \
+  console-setup \
+  xserver-xorg \
+  nethack-qt \
+  youtube-dl \
+  redshift \
+  xinit \
+  scrot \
+  unzip \
+  hexchat
+  htop \
+  feh \
+  vim \
+  ssh
 }
 
 install_gnome()
 {
-  sudo apt install gnome gnome-boxes fonts-powerline faenza-icon-theme
+  sudo apt install \
+  gnome-tweak-tool \
+  fonts-powerline \
+  gnome-boxes \
+  gnome
 }
 
 install_tweak_packages()
 {
-  sudo apt install faenza-icon-theme gnome-tweak-tool
+  sudo apt install \
+  fonts-font-awesome \
+  faenza-icon-theme \
+  fonts-inconsolata
+}
+
+install_drivers()
+{
+  # asus ac51 driver
+  # sudo apt install firmware-misc-nonfree
+
+  # rtx 2070
+  # sudo apt install nvidia-driver
+
+  # thinkpad x1 carbon wifi
+  sudo apt install firmware-iwlwifi
+}
+
+install_dev_tools()
+{
+  sudo apt install \
+  build-essential \
+  exuberant-ctags \
+  libncurses-dev \
+  libssl-dev \
+  libelf-dev \
+  libssl-dev \
+  cmake curl \
+  python3 \
+  python \
+  bison \
+  flex \
+  gcc \
+  vim \
+  git
 }
 
 clone_dotfiles()
 {
-  if [[ ! -d $HOME/repo/dotfiles ]]; then
-    git clone https://github.com/dudekmichal/dotfiles.git $HOME/repo/dotfiles
+  if [[ ! -d $HOME/src/dotfiles ]]; then
+    git clone https://github.com/dudekmichal/dotfiles.git $HOME/src/dotfiles
   fi;
 
-  cp -R $HOME/repo/dotfiles/.* $HOME/
-  rm -rf $HOME/repo/dotfiles
+  # cp -R $HOME/src/dotfiles/.* $HOME/
+  # rm -rf $HOME/src/dotfiles
 }
 
 config_other()
@@ -118,28 +159,12 @@ other_settings()
   sudo update-grub
 }
 
-install_drivers()
-{
-  # asus_ac51_driver
-  sudo apt install firmware-misc-nonfree
-
-  # RTX 2070
-  sudo apt install nvidia-driver
-}
-
-install_dev_tools()
-{
-  sudo apt install build-essential libncurses-dev bison flex libssl-dev libelf-dev gcc vim git gnome-boxes
-}
-
 config_zsh()
 {
   sudo apt install vim zsh fonts-powerline -y
   chsh -s /usr/bin/zsh
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  # TODO: will work without zsh restart?
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  vim ~/.zshrc
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/src/powerlevel10k
+  echo 'source ~/src/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 }
 
 main()
@@ -147,12 +172,13 @@ main()
   create_directories
   clone_repositories
   config_apt
-  # install_packages
-  install_dev_tools
+  install_packages
+  # install_gnome
+  install_tweak_packages
   install_drivers
-  install_gnome
-  # install_cli_packages
+  install_dev_tools
   clone_dotfiles
+  config_zsh
   config_other
   other_settings
 }

@@ -9,14 +9,14 @@ Script for automated configuration of fresh installed Debian.
 Script also copies my personal dotfiles from [dudekmichal/dotfiles](https://github.com/dudekmichal/dotfiles).
 
 ```bash
-$ mkdir ~/repo
-$ su
+$ mkdir ~/src
+$ su -
 $ apt install sudo git vim
 $ vim /etc/sudoers 
   username ALL=(ALL) NOPASSWD:ALL
 $ exit
-$ git clone https://github.com/dudekmichal/debian.git ~/repo/debian
-$ bash ~/repo/debian/debian.sh
+$ git clone https://github.com/dudekmichal/debian.git ~/src/debian
+$ bash ~/src/debian/debian.sh
 ```
 
 

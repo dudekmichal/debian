@@ -1,8 +1,8 @@
 deb http://ftp.pl.debian.org/debian/ stable main contrib
-deb-src http://ftp.pl.debian.org/debian/ stable main contrib
+# deb-src http://ftp.pl.debian.org/debian/ stable main contrib
 
 deb http://ftp.pl.debian.org/debian/ stable-updates main contrib
-deb-src http://ftp.pl.debian.org/debian/ stable-updates main contrib
+# deb-src http://ftp.pl.debian.org/debian/ stable-updates main contrib
 
 deb http://security.debian.org/ stable/updates main
-deb-src http://security.debian.org/ stable/updates main
+# deb-src http://security.debian.org/ stable/updates main
