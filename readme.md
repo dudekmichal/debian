@@ -9,7 +9,7 @@ Script for automated configuration of fresh installed Debian.
 Script also copies my personal dotfiles from [dudekmichal/dotfiles](https://github.com/dudekmichal/dotfiles).
 
 ```bash
-$ ssk-keygen  # add SSH key to github
+$ ssk-keygen
 $ mkdir ~/src
 $ su -
 $ apt install sudo git vim

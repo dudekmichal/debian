@@ -100,13 +100,16 @@ install_dev_tools()
   build-essential \
   exuberant-ctags \
   libncurses-dev \
+  virt-manager \
   libssl-dev \
   libelf-dev \
   libssl-dev \
-  cmake curl \
+  devscripts \
   python3 \
   bison \
+  cmake \
   flex \
+  curl \
   gcc \
   vim \
   git
