@@ -118,7 +118,6 @@ install_dev_tools()
 setup_dotfiles()
 {
   rsync -ah --exclude ".git*" $HOME/src/dotfiles/.* $HOME/
-  # rm -rf $HOME/.git
 }
 
 config_other()
@@ -126,11 +125,6 @@ config_other()
   echo -e ${MAIN}"==> Setting other packages"${NC}
   chsh -s /usr/bin/zsh $USER
   xrdb -merge $HOME/.Xresources
-
-  # systemctl --user enable mpd
-  # systemctl --user start mpd
-  # sudo systemctl enable NetworkManager.service
-  # sudo systemctl start NetworkManager.service
 }
 
 other_settings()
@@ -148,8 +142,8 @@ config_zsh()
   sudo apt install vim zsh fonts-powerline -y
   chsh -s /usr/bin/zsh
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.config/powerlevel10k
-  echo "[[ ! -f ~/src/dotfiles/.aliasrc ]] || source ~/.aliasrc" >>~/.zshrc
-  echo "source ~/.config/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
+  # echo "[[ ! -f ~/src/dotfiles/.aliasrc ]] || source ~/.aliasrc" >>~/.zshrc
+  # echo "source ~/.config/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
 }
 
 main()
