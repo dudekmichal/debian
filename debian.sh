@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 echo -e ${MAIN}"==> Setting global variables"${NC}
 RED='\033[0;31m'
@@ -27,6 +27,7 @@ create_directories()
   mkdir $HOME/src
   mkdir $HOME/img
   mkdir $HOME/msc
+  mkdir $HOME/virt
 }
 
 config_apt()
@@ -99,10 +100,14 @@ install_dev_tools()
   libelf-dev \
   libssl-dev \
   devscripts \
+  fakeroot \
   python3 \
+  dwarves \ 
+  pahole \
   bison \
   cmake \
   flex \
+  wget \
   curl \
   gcc \
   vim \
