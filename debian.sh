@@ -29,13 +29,6 @@ create_directories()
   mkdir $HOME/msc
 }
 
-clone_repositories()
-{
-  echo -e ${MAIN}"==> Cloning repositories"${NC}
-  git clone git@github.com:dudekmichal/debian.git $HOME/src/debian
-  git clone git@github.com:dudekmichal/dotfiles.git $HOME/src/dotfiles
-}
-
 config_apt()
 {
   echo -e ${MAIN}"==> Configuration of sources.list"${NC}
@@ -117,6 +110,7 @@ install_dev_tools()
 
 setup_dotfiles()
 {
+  git clone https://github.com/dudekmichal/dotfiles.git $HOME/src/dotfiles
   rsync -ah --exclude ".git*" $HOME/src/dotfiles/.* $HOME/
 }
 
@@ -150,7 +144,6 @@ main()
 {
   verify_user
   create_directories
-  clone_repositories
   config_apt
   install_packages
   # install_gnome
