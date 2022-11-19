@@ -43,8 +43,11 @@ install_packages()
 {
   echo -e ${MAIN}"==> Installing packages"${NC}
   sudo apt install \
+  fonts-font-awesome \
+  faenza-icon-theme \
+  fonts-inconsolata \
+  fonts-powerline \
   console-setup \
-  xserver-xorg \
   nethack-qt \
   youtube-dl \
   # redshift \
@@ -62,17 +65,15 @@ install_gnome()
 {
   sudo apt install \
   gnome-tweak-tool \
-  fonts-powerline \
   gnome-boxes \
   gnome
 }
 
-install_tweak_packages()
+install_kde()
 {
   sudo apt install \
-  fonts-font-awesome \
-  faenza-icon-theme \
-  fonts-inconsolata
+  kde-full \
+  sddm
 }
 
 install_drivers()
@@ -147,8 +148,8 @@ main()
   config_apt
   install_packages
   # install_gnome
-  install_tweak_packages
-  install_drivers
+  # install_kde
+  # install_drivers
   install_dev_tools
   setup_dotfiles
   config_zsh
