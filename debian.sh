@@ -65,6 +65,7 @@ install_packages()
 install_gnome()
 {
   sudo apt install \
+  gnome-shell-extension-dashtodock \
   gnome-tweak-tool \
   gnome-boxes \
   gnome
