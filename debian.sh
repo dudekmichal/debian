@@ -96,7 +96,9 @@ install_dev_tools()
   build-essential \
   exuberant-ctags \
   libncurses-dev \
+  gtk-4-examples \
   virt-manager \
+  libgtk-4-dev \
   libssl-dev \
   libelf-dev \
   libssl-dev \
@@ -105,6 +107,7 @@ install_dev_tools()
   python3 \
   dwarves \ 
   pahole \
+  glade \
   bison \
   cmake \
   flex \
